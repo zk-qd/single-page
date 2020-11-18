@@ -20,6 +20,9 @@
   /*早期浏览器*/
   user-select: none;
   /*需求改变 可以修改公共样式 */
+  /*   .z-page-text:hover {
+    color: #409eff;
+  } */
   /*  .z-page-text:nth-of-type(3) {
     margin-right: @pagePagesMarginRight;
   }
@@ -49,11 +52,11 @@
 .z-page-container .z-page-equal:hover {
   /* background-color: #FF8200; */
   /* background-color: #409EFF; */
-  color: #409eff;
 }
 .z-page-container .z-page-disabled,
 .z-page-container .z-page-disabled:hover {
   background-color: #efefef;
+  color: #535353 !important;
   cursor: not-allowed;
 }
 .z-page-container .z-page-prev,
@@ -62,7 +65,11 @@
 }
 .z-page-container .z-page-num {
   /* 默认隐藏所有页标 */
-  display: none;
+}
+.z-page-container .z-page-num:hover,
+.z-page-container .z-page-prev:hover,
+.z-page-container .z-page-next:hover {
+  color: #409eff;
 }
 .z-page-container .z-page-active {
   /* background-color: #FF8200; */
@@ -75,9 +82,6 @@
 .z-page-container .z-page-text {
   border-color: transparent;
   box-shadow: 0 0 0 0 #FFF;
-}
-.z-page-container .z-page-text:hover {
-  color: #409eff;
 }
 .z-page-container .z-page-input {
   width: 2.2em;

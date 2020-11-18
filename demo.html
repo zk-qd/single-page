@@ -13,6 +13,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        /* background-color: antiquewhite; */
     }
 
     div {
@@ -25,13 +26,11 @@
     <div id="page"></div>
     <script src="./index.js"></script>
     <script>
-        const page = new Page('page', {
-            request
+        const page = new Page('page');
+        page.render({ index: 1, count: 5, rows: 50 })
+        page.skip(function ({ index, count }) {
+            this.render({ index, count, rows: 50 })
         });
-        function request({ count, index }) {
-            page.render({ index: index, count: count, rows: 88 });
-        }
-        request({ index: 1, count: 10 });
     </script>
 </body>
 

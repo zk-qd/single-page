@@ -1,73 +1,70 @@
-function Page(id, { request }) {
-    this.random = "page-container-" + Math.floor(Math.random() * 10000);
-    this.nums = 5;
+function Page(id) {
+    this.random = "-container-" + Math.floor(Math.random() * 10000);
+    this.num = 5;
     this.index;
     this.count;
     this.rows;
     this.pages;
-    this.list;
     this.id = id; // 容器id
-    this.request = request;
+    this.callback;
 }
+
 Page.prototype = {
-    init({ index, count, rows, nums = Number(this.nums) }) {
+
+    /** 
+     * 内置方法：通过参数获取分页配置
+    */
+    config({ index, count, rows }) {
         // index count rows 必传
-        this.nums = Number(nums);
         this.index = Number(index);
         this.count = Number(count);
         this.rows = Number(rows);
         this.pages = Math.ceil(this.rows / this.count);
-        // 中间数 this.nums的中间
+        // 中间数 this.num的中间
         let mid,
             // 视口的最大页标和最小页标
             max,
             min,
             config = [];
         // 不大于最小显示页数时
-        if (this.pages <= this.nums) {
+        if (this.pages <= this.num) {
             min = 1;
             max = this.pages;
         } else {
             // 显示所有页标
-            if (this.nums % 2 == 0) {
+            if (this.num % 2 == 0) {
                 // 偶数
-                mid = this.nums / 2;
+                mid = this.num / 2;
                 min = this.index - mid + 1;
                 max = this.index + mid;
             } else {
                 // 奇数
-                mid = Math.ceil(this.nums / 2);
+                mid = Math.ceil(this.num / 2);
                 min = this.index - mid + 1;
                 max = this.index + mid - 1;
             }
             // 求得最小值和最大值
             if (min < 1) { // 向前溢出
                 min = 1;
-                max = this.nums;
+                max = this.num;
             } else if (max > this.pages) { // 向后溢出
                 max = this.pages;
-                min = max - this.nums + 1;
+                min = max - this.num + 1;
             }
         }
         // 通过index min max获取分页配置
         for (let i = min; i <= max; i++) {
             config.push(i);
         }
-        this.list = config;
-        return this;
+        return config;
     },
-    render({ index, count, rows, nums }) {
-        this.init({ index, count, rows, nums })
-        // 解释器
-        let html = this.interpreter(this.list);
-        document.querySelector('#' + this.id).insertAdjacentHTML("afterbegin", html);
-        this.bind();
-    },
+    /**
+     * 解释器
+     *  */
     interpreter(list) {
-        console.log(list)
         let html = [],
-            prevDis = list[0] == 1 ? 'z-page-disabled' : '',
-            nextDis = list.slice(-1)[0] == this.pages ? 'z-page-disabled' : '';
+            prevDis = this.index == 1 ? 'z-page-disabled' : '',
+            nextDis = this.index == this.pages ? 'z-page-disabled' : '';
         html.push("<div class='z-page-container' id='" + this.id + this.random + "'>")
         html.push(
             "<ul class='z-page-wrapper'" +
@@ -75,7 +72,7 @@ Page.prototype = {
             "data-rows='" + this.rows + "'" +
             "data-count='" + this.count + "'" +
             "data-pages='" + this.pages + "'" +
-            "data-nums='" + this.nums + "'" +
+            "data-num='" + this.num + "'" +
             ">"
         );
         html.push(
@@ -92,7 +89,7 @@ Page.prototype = {
         );
         list.forEach((num, idx) => {
             html.push(
-                `<li class='z-page-equal z-page-nums ${num == this.index ? 'z-page-active' : ''}' data-active='${num}'>${num}</li>`
+                `<li class='z-page-equal z-page-num ${num == this.index ? 'z-page-active' : ''}' data-active='${num}'>${num}</li>`
             )
         });
         html.push(
@@ -117,7 +114,7 @@ Page.prototype = {
     },
     bind() {
         let container = document.querySelector('#' + this.id),
-            numsDom = container.querySelectorAll('.z-page-nums'),
+            numDom = container.querySelectorAll('.z-page-num'),
             prevDom = container.querySelector('.z-page-prev'),
             nextDom = container.querySelector('.z-page-next'),
             skipDom = container.querySelector('.z-page-input>input'),
@@ -130,21 +127,51 @@ Page.prototype = {
                 handleClick: (e) => {
                     let currentTarget = e.currentTarget,
                         active = currentTarget.dataset.active;
-                    active >= 1 && active <= this.pages && this.request({ index: Number(active), count: this.count });
+                    active >= 1 && active <= this.pages && this.callback({ index: Number(active), count: this.count });
                 },
                 handleKeyup: (e) => {
                     if (e.keyCode == 13) {
                         let currentTarget = e.currentTarget,
                             active = currentTarget.value;
-                        active >= 1 && active <= this.pages && this.request({ index: Number(active), count: this.count });
+                        active >= 1 && active <= this.pages && this.callback({ index: Number(active), count: this.count });
                     }
 
                 }
             }
-        numsDom.forEach(dom => dom.addEventListener('click', handler.handleClick, handler.config));
+        numDom.forEach(dom => dom.addEventListener('click', handler.handleClick, handler.config));
         prevDom.addEventListener('click', handler.handleClick, handler.config);
         nextDom.addEventListener('click', handler.handleClick, handler.config);
         skipDom.addEventListener('keyup', handler.handleKeyup, handler.config);
 
+    },
+    /**
+     * 渲染分页方法
+     *  */
+    render({ index, count, rows }) {
+        // 获取配置
+        let list = this.config({ index, count, rows })
+        // 添加到页面
+        document.querySelector('#' + this.id).innerHTML = this.interpreter(list);
+        // 绑定事件
+        this.bind();
+    },
+    /**
+     * 设置num方法
+     *  */
+    setNum(num) {
+        this.num = num;
+    },
+    /**
+     * 页面跳转回调
+     *  */
+    skip(callback) {
+        return new Promise((resolve, reject) => {
+            this.callback = function ({ index, count }) {
+                resolve(callback && callback.call(this, {
+                    index, count
+                }))
+            }
+        })
     }
+
 }

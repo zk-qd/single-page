@@ -63,12 +63,13 @@
   .z-page-equal:hover {
     /* background-color: #FF8200; */
     /* background-color: #409EFF; */
-    color: #409eff;
+    // color: #409eff;
   }
 
   .z-page-disabled,
   .z-page-disabled:hover {
     background-color: #efefef;
+    color: #535353 !important;
     cursor: not-allowed;
   }
 
@@ -79,7 +80,13 @@
 
   .z-page-num {
     /* 默认隐藏所有页标 */
-    display: none;
+    // display: none;
+  }
+
+  .z-page-num:hover,
+  .z-page-prev:hover,
+  .z-page-next:hover {
+    color: #409eff;
   }
 
   .z-page-active {
@@ -98,9 +105,9 @@
     box-shadow: 0 0 0 0 #FFF;
   }
 
-  .z-page-text:hover {
+  /*   .z-page-text:hover {
     color: #409eff;
-  }
+  } */
 
   // input父元素
   .z-page-input {
@@ -113,15 +120,18 @@
       height: 100%;
       text-align: center;
       vertical-align: middle;
+
       &:hover {
         border-color: #409eff;
       }
+
       &::focus {
         border-color: #409eff;
       }
     }
   }
- /*  .z-page-text:nth-of-type(3) {
+
+  /*  .z-page-text:nth-of-type(3) {
     margin-right: @pagePagesMarginRight;
   }
    */
