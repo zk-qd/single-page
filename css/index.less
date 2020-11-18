@@ -1,0 +1,148 @@
+/* 
+样式模板
+复杂样式需自定义
+
+本样式不允许自定义以及修改任何元素 font-size
+*/
+@pFontSize: 14px;
+
+@pHeight: 2.2em;
+@pWidth: 2.2em;
+@pMargin: 0 0.3em;
+@pPadding: 0 0.3em;
+// 分页总宽度
+@pageWidth: 100%;
+
+// 总页数
+@pagePagesMarginRight: 0.9em;
+
+// 1px
+@1px: 1em / @pFontSize;
+
+/* 分页 */
+.z-page-container {
+  width: @pageWidth;
+  overflow: hidden;
+  text-align: center;
+  font-size: @pFontSize;
+
+  -moz-user-select: none;
+  /*火狐*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -ms-user-select: none;
+  /*IE10*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  user-select: none;
+
+  .z-page-wrapper {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: stretch;
+  }
+
+  /*需求改变 可以修改公共样式 */
+  .z-page-equal {
+    flex: none;
+    text-align: center;
+    color: #535353;
+    height: @pHeight;
+    line-height: @pHeight;
+    min-width: @pWidth;
+    padding: @pPadding;
+    margin: @pMargin;
+    font-weight: 500;
+    cursor: pointer;
+    border: #efefef solid @1px;
+    border-radius: 2 * @1px;
+    box-shadow: 0px 0px 3 * @1px #efefef;
+  }
+
+  .z-page-equal:hover {
+    /* background-color: #FF8200; */
+    /* background-color: #409EFF; */
+    color: #409eff;
+  }
+
+  .z-page-disabled,
+  .z-page-disabled:hover {
+    background-color: #efefef;
+    cursor: not-allowed;
+  }
+
+  .z-page-prev,
+  .z-page-next {
+    width: @pWidth / 2 * 5;
+  }
+
+  .z-page-num {
+    /* 默认隐藏所有页标 */
+    display: none;
+  }
+
+  .z-page-active {
+    /* background-color: #FF8200; */
+    background-color: #409eff;
+    color: white;
+  }
+
+  .z-page-active:hover {
+    color: white;
+  }
+
+  // 字体
+  .z-page-text {
+    border-color: transparent;
+    box-shadow: 0 0 0 0 #FFF;
+  }
+
+  .z-page-text:hover {
+    color: #409eff;
+  }
+
+  // input父元素
+  .z-page-input {
+    width: @pWidth;
+    vertical-align: middle;
+    overflow: hidden;
+
+    input {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      &:hover {
+        border-color: #409eff;
+      }
+      &::focus {
+        border-color: #409eff;
+      }
+    }
+  }
+ /*  .z-page-text:nth-of-type(3) {
+    margin-right: @pagePagesMarginRight;
+  }
+   */
+}
+
+
+/* 清除默认样式 */
+ul {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+input {
+  outline: none;
+  font-size: inherit;
+  box-sizing: border-box;
+  border: none;
+}
+
+li {
+  box-sizing: border-box;
+}
