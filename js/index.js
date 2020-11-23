@@ -168,7 +168,7 @@ Page.prototype = {
         this.callback = function ({ index, count }) {
             callback.call(this, {
                 index, count
-            }, this.render)
+            }, this.render.bind(this))
         }
         this.callback({ index: this.index, count: this.count })
     }
