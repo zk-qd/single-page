@@ -15,9 +15,11 @@
 
 // 总页数
 @pagePagesMarginRight: 0.9em;
-
 // 1px
 @1px: 1em / @pFontSize;
+// 选中颜色
+// @color: #409eff;
+@color: #0C6FAB;
 
 /* 分页 */
 .z-page-container {
@@ -62,8 +64,8 @@
 
   .z-page-equal:hover {
     /* background-color: #FF8200; */
-    /* background-color: #409EFF; */
-    // color: #409eff;
+    /* background-color: @color; */
+    // color: @color;
   }
 
   .z-page-disabled,
@@ -86,12 +88,12 @@
   .z-page-num:hover,
   .z-page-prev:hover,
   .z-page-next:hover {
-    color: #409eff;
+    color: @color;
   }
 
   .z-page-active {
     /* background-color: #FF8200; */
-    background-color: #409eff;
+    background-color: @color;
     color: white;
   }
 
@@ -106,7 +108,7 @@
   }
 
   /*   .z-page-text:hover {
-    color: #409eff;
+    color: @color;
   } */
 
   // input父元素
@@ -122,11 +124,11 @@
       vertical-align: middle;
 
       &:hover {
-        border-color: #409eff;
+        border-color: @color;
       }
 
       &::focus {
-        border-color: #409eff;
+        border-color: @color;
       }
     }
   }

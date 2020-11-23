@@ -27,7 +27,6 @@
     <script src="./js/index.js"></script>
     <script>
         const page = new Page('page');
-        page.render({ index: 1, count: 5, rows: 50 })
         page.skip(function ({ index, count }) {
             this.render({ index, count, rows: 50 })
         });

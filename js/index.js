@@ -1,8 +1,8 @@
-function Page(id) {
+function Page(id, { index = 1, count = 10 } = {}) {
     this.random = "-container-" + Math.floor(Math.random() * 10000);
     this.num = 5;
-    this.index;
-    this.count;
+    this.index = index
+    this.count = count;
     this.rows;
     this.pages;
     this.id = id; // 容器id
@@ -165,13 +165,12 @@ Page.prototype = {
      * 页面跳转回调
      *  */
     skip(callback) {
-        return new Promise((resolve, reject) => {
-            this.callback = function ({ index, count }) {
-                resolve(callback && callback.call(this, {
-                    index, count
-                }))
-            }
-        })
+        this.callback = function ({ index, count }) {
+            callback.call(this, {
+                index, count
+            })
+        }
+        this.callback({ index: this.index, count: this.count })
     }
 
 }

@@ -21,7 +21,7 @@
   user-select: none;
   /*需求改变 可以修改公共样式 */
   /*   .z-page-text:hover {
-    color: #409eff;
+    color: @color;
   } */
   /*  .z-page-text:nth-of-type(3) {
     margin-right: @pagePagesMarginRight;
@@ -51,7 +51,7 @@
 }
 .z-page-container .z-page-equal:hover {
   /* background-color: #FF8200; */
-  /* background-color: #409EFF; */
+  /* background-color: @color; */
 }
 .z-page-container .z-page-disabled,
 .z-page-container .z-page-disabled:hover {
@@ -69,11 +69,11 @@
 .z-page-container .z-page-num:hover,
 .z-page-container .z-page-prev:hover,
 .z-page-container .z-page-next:hover {
-  color: #409eff;
+  color: #0C6FAB;
 }
 .z-page-container .z-page-active {
   /* background-color: #FF8200; */
-  background-color: #409eff;
+  background-color: #0C6FAB;
   color: white;
 }
 .z-page-container .z-page-active:hover {
@@ -95,10 +95,10 @@
   vertical-align: middle;
 }
 .z-page-container .z-page-input input:hover {
-  border-color: #409eff;
+  border-color: #0C6FAB;
 }
 .z-page-container .z-page-input input::focus {
-  border-color: #409eff;
+  border-color: #0C6FAB;
 }
 /* 清除默认样式 */
 ul {
