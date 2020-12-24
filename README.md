@@ -1,4 +1,5 @@
 # single-page
+
 分页插件
 
 # 使用
@@ -17,6 +18,32 @@ page.skip(function ({ index, count }) {
 });
 ```
 
+# 重复创建
+
+```js
+// 重复在同一个元素中创建-后者覆盖前者
+const page1 = new Page("page");
+page1.skip(function ({ index, count }, render) {
+  render({ index, count, rows: 50 });
+});
+
+const page2 = new Page("page");
+page2.skip(function ({ index, count }, render) {
+  render({ index, count, rows: 50 });
+});
+
+// 在不同元素中创建-多例模式
+const page1 = new Page("page1");
+page1.skip(function ({ index, count }, render) {
+  render({ index, count, rows: 50 });
+});
+const page2 = new Page("page2");
+page2.skip(function ({ index, count }, render) {
+  render({ index, count, rows: 50 });
+});
+```
+
 # 版本
 
 - v1.0
+
